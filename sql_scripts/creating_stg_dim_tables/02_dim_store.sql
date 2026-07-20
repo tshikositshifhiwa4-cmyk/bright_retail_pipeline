@@ -20,6 +20,9 @@ begin
 end
 go
 
+--truncate table
+truncate table [stg_bright_retail].[dbo].[dim_store]
+
 --closing out the rows where manager changed
 update s
 set s.effective_end_date = getdate(), s.is_current = 0
