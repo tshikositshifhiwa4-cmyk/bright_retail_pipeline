@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BrightLearn Data Warehouse Build — Mission Brief</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #070a16;
+    --bg2: #0d1230;
+    --panel: #10152e;
+    --line: rgba(167,139,250,0.18);
+    --pink: #f472b6;
+    --purple: #a78bfa;
+    --blue: #60a5fa;
+    --text: #e9ecf8;
+    --muted: #8c92b5;
+    --gold: #facc8f;
+    --silver: #c9cee0;
+    --bronze: #d99a6b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: radial-gradient(ellipse 120% 80% at 50% -10%, #16204a 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  #stars{position:fixed; inset:0; z-index:0; pointer-events:none;}
+  .wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding: 0 28px 100px;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding: 64px 0 20px; text-align:center;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--purple); opacity:0.85;
+  }
+  h1.title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size: clamp(34px, 6vw, 62px);
+    line-height:1.05;
+    margin: 14px 0 10px;
+    background: linear-gradient(100deg, #ffffff 10%, var(--purple) 55%, var(--pink) 95%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .subtitle{color:var(--muted); font-size:16px; max-width:560px; margin:0 auto;}
+
+  /* countdown */
+  .countdown{
+    margin: 32px auto 0; display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
+  }
+  .cbox{
+    background: linear-gradient(160deg, var(--panel), #0a0d1f);
+    border:1px solid var(--line); border-radius:14px;
+    padding:14px 20px; min-width:84px; text-align:center;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.02), 0 10px 30px -12px rgba(167,139,250,0.25);
+  }
+  .cbox .num{font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:600; color:var(--pink);}
+  .cbox .lab{font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px;}
+  .due-line{margin-top:14px; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted);}
+  .due-line span{color:var(--blue);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{margin-top:96px;}
+  .sec-eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:3px;
+    color:var(--blue); text-transform:uppercase; opacity:0.8;
+  }
+  .sec-title{
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size: clamp(24px, 3.4vw, 34px);
+    margin: 8px 0 30px; color:#fff;
+  }
+
+  /* ---------- CONSTELLATION (signature element) ---------- */
+  .constellation-wrap{
+    position:relative; margin-top:56px; border-radius:24px;
+    background: linear-gradient(180deg, rgba(16,21,46,0.6), rgba(10,13,31,0.9));
+    border:1px solid var(--line);
+    padding: 10px 0 0;
+    overflow:hidden;
+  }
+  .constellation-cap{
+    text-align:center; padding: 20px 20px 0; color:var(--muted); font-size:13px;
+  }
+  .constellation-cap b{color:var(--text); font-weight:600;}
+  svg#star-schema{width:100%; height:auto; display:block;}
+  .node-core circle{filter: drop-shadow(0 0 14px rgba(244,114,182,0.9));}
+  .node circle.dot{transition: r 0.2s ease, filter 0.2s ease; cursor:pointer;}
+  .node:hover circle.dot{filter: drop-shadow(0 0 10px currentColor);}
+  .node text{font-family:'JetBrains Mono', monospace; font-size:11px; fill: var(--text); }
+  .node .fields{font-size:9.5px; fill: var(--muted); opacity:0; transition:opacity 0.2s ease;}
+  .node:hover .fields{opacity:1;}
+  .link{stroke: var(--line); stroke-width:1.4;}
+  .pulse{animation: pulse 2.6s ease-in-out infinite;}
+  @keyframes pulse{
+    0%,100%{ opacity:0.55; }
+    50%{ opacity:1; }
+  }
+
+  /* ---------- STORES / TIERS ---------- */
+  .grid-2{display:grid; grid-template-columns:1.1fr 1fr; gap:20px;}
+  @media (max-width:720px){ .grid-2{grid-template-columns:1fr;} }
+  .card{
+    background: linear-gradient(160deg, var(--panel), #0a0d1f);
+    border:1px solid var(--line); border-radius:18px; padding:24px;
+  }
+  .card h3{
+    font-family:'Space Grotesk', sans-serif; font-size:16px; margin-bottom:14px; color:#fff;
+  }
+  .store-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 0; border-bottom:1px dashed var(--line); font-size:14px;
+  }
+  .store-row:last-child{border-bottom:none;}
+  .store-name{font-weight:600;}
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:11px; padding:3px 9px; border-radius:20px;
+    background: rgba(96,165,250,0.12); color: var(--blue); white-space:nowrap;
+  }
+  .tiers{display:flex; gap:10px; margin-top:6px;}
+  .tier{
+    flex:1; border-radius:14px; padding:16px 10px; text-align:center;
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:14px;
+  }
+  .tier.bronze{background:linear-gradient(160deg, rgba(217,154,107,0.18), rgba(217,154,107,0.04)); color:var(--bronze); border:1px solid rgba(217,154,107,0.3);}
+  .tier.silver{background:linear-gradient(160deg, rgba(201,206,224,0.18), rgba(201,206,224,0.04)); color:var(--silver); border:1px solid rgba(201,206,224,0.3);}
+  .tier.gold{background:linear-gradient(160deg, rgba(250,204,143,0.22), rgba(250,204,143,0.05)); color:var(--gold); border:1px solid rgba(250,204,143,0.35);}
+  .tier .t-lab{font-size:10px; letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-top:3px;}
+  .pos-note{margin-top:16px; font-size:13px; color:var(--muted);}
+  .pos-note b{color:var(--text);}
+
+  /* ---------- PIPELINE ---------- */
+  .pipeline{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative;
+  }
+  @media (max-width:800px){ .pipeline{grid-template-columns:1fr;} }
+  .p-step{
+    background: linear-gradient(160deg, var(--panel), #0a0d1f);
+    border:1px solid var(--line); padding:24px 18px; position:relative;
+  }
+  .p-step:first-child{border-radius:18px 0 0 18px;}
+  .p-step:last-child{border-radius:0 18px 18px 0;}
+  @media (max-width:800px){
+    .p-step:first-child{border-radius:18px 18px 0 0;}
+    .p-step:last-child{border-radius:0 0 18px 18px;}
+  }
+  .p-num{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--pink);
+    border:1px solid rgba(244,114,182,0.4); border-radius:20px; padding:2px 10px; display:inline-block;
+  }
+  .p-step h4{font-family:'Space Grotesk',sans-serif; margin:12px 0 6px; font-size:15px;}
+  .p-step p{font-size:13px; color:var(--muted);}
+  .p-arrow{
+    position:absolute; top:50%; right:-14px; transform:translateY(-50%);
+    color:var(--purple); font-size:20px; z-index:2;
+  }
+  @media (max-width:800px){ .p-arrow{display:none;} }
+
+  /* ---------- DATA QUALITY ---------- */
+  .dq-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .dq-table th{
+    text-align:left; font-family:'JetBrains Mono',monospace; font-weight:500; font-size:11px;
+    letter-spacing:1px; text-transform:uppercase; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--line);
+  }
+  .dq-table td{padding:12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .dq-table tr:last-child td{border-bottom:none;}
+  .col-name{font-family:'JetBrains Mono',monospace; color:var(--blue); font-size:12.5px; white-space:nowrap;}
+  .fix-tag{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10.5px; padding:2px 8px;
+    border-radius:8px; background:rgba(167,139,250,0.15); color:var(--purple); margin-top:4px;
+  }
+
+  /* ---------- FORMULAS ---------- */
+  .formula-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:720px){ .formula-grid{grid-template-columns:1fr;} }
+  .formula-card{
+    background: linear-gradient(160deg, #131a3a, #0a0d1f);
+    border:1px solid var(--line); border-radius:16px; padding:20px;
+  }
+  .formula-card h4{font-family:'Space Grotesk',sans-serif; font-size:14px; margin-bottom:10px; color:#fff;}
+  .code{
+    font-family:'JetBrains Mono', monospace; font-size:13px; background:rgba(0,0,0,0.3);
+    border-radius:8px; padding:10px 12px; color:var(--pink); margin-bottom:10px; overflow-x:auto;
+  }
+  .formula-card p{font-size:12.5px; color:var(--muted);}
+
+  /* ---------- WEIGHTS ---------- */
+  .weights{display:flex; flex-direction:column; gap:12px;}
+  .w-row{display:grid; grid-template-columns: 160px 1fr 50px; align-items:center; gap:14px; font-size:13px;}
+  .w-bar-bg{background:rgba(255,255,255,0.05); border-radius:8px; height:14px; overflow:hidden;}
+  .w-bar{height:100%; border-radius:8px; background:linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); width:0%; transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
+  .w-pct{font-family:'JetBrains Mono',monospace; color:var(--muted); text-align:right;}
+
+  /* ---------- TOOLS FOOTER ---------- */
+  .tools{display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
+  .tool-chip{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:8px 16px; border-radius:20px;
+    border:1px solid var(--line); background:rgba(255,255,255,0.02); color:var(--text);
+  }
+  footer{
+    text-align:center; margin-top:90px; padding-top:30px; border-top:1px solid var(--line);
+    color:var(--muted); font-size:12px; font-family:'JetBrains Mono',monospace;
+  }
+  footer .name{color:var(--pink);}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Exam Plan · Data Engineering</div>
+    <h1 class="title">BrightLearn<br>Data Warehouse Build</h1>
+    <p class="subtitle">Five stores. One messy flat file.</p>
+
+    <div class="countdown" id="countdown">
+      <div class="cbox"><div class="num" id="cd-days">--</div><div class="lab">Days</div></div>
+      <div class="cbox"><div class="num" id="cd-hours">--</div><div class="lab">Hours</div></div>
+      <div class="cbox"><div class="num" id="cd-mins">--</div><div class="lab">Mins</div></div>
+      <div class="cbox"><div class="num" id="cd-secs">--</div><div class="lab">Secs</div></div>
+    </div>
+    <div class="due-line">Due <span>21 July 2026 · 23:59</span></div>
+  </div>
+
+  <!-- CONSTELLATION / STAR SCHEMA -->
+  <div class="section">
+    <div class="sec-eyebrow">01 — The Schema</div>
+
+    <div class="constellation-wrap">
+      <svg id="star-schema" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+        <!-- links -->
+        <g id="links"></g>
+        <!-- center node -->
+        <g class="node node-core" transform="translate(400,300)">
+          <circle class="dot pulse" r="15" fill="#f472b6"></circle>
+          <text text-anchor="middle" y="5" font-size="12" font-weight="600" fill="#fff">FACT_SALES</text>
+        </g>
+        <g id="nodes"></g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- BUSINESS CONTEXT -->
+  <div class="section">
+    <div class="sec-eyebrow">02 — The Business</div>
+    <div class="sec-title">Five stores, three tiers, one export nightmare</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Stores across South Africa</h3>
+        <div class="store-row"><span class="store-name">Sandton</span><span class="tag">Gauteng</span></div>
+        <div class="store-row"><span class="store-name">Pretoria</span><span class="tag">Gauteng</span></div>
+        <div class="store-row"><span class="store-name">Cape Town</span><span class="tag">Western Cape</span></div>
+        <div class="store-row"><span class="store-name">Umhlanga</span><span class="tag">KwaZulu-Natal</span></div>
+        <div class="store-row"><span class="store-name">Gqeberha</span><span class="tag">Eastern Cape</span></div>
+        <div class="pos-note">Each store runs <b>its own POS system</b> — different types, all exporting one giant unnormalised flat file: transactions, customers, products, and stores all mixed together.</div>
+      </div>
+      <div class="card">
+        <h3>Loyalty tiers</h3>
+        <div class="tiers">
+          <div class="tier bronze">Bronze<div class="t-lab">Entry</div></div>
+          <div class="tier silver">Silver<div class="t-lab">Repeat</div></div>
+          <div class="tier gold">Gold<div class="t-lab">Loyal</div></div>
+        </div>
+        <div class="pos-note" style="margin-top:20px;"><b>The mission:</b> turn a flat, messy, single-file export into a functional warehouse that powers real decisions on inventory, customer retention, and store performance.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE -->
+  <div class="section">
+    <div class="sec-eyebrow">03 — The SSIS ETL Plan</div>
+    <div class="sec-title">Four moves, in order</div>
+
+    <div class="pipeline">
+      <div class="p-step">
+        <span class="p-num">01</span>
+        <h4>Load CSV → Staging</h4>
+        <p>Raw flat file lands in the staging warehouse, untouched.</p>
+        <div class="p-arrow">→</div>
+      </div>
+      <div class="p-step">
+        <span class="p-num">02</span>
+        <h4>Load into Schema</h4>
+        <p>Split staging data into the star schema — facts and dimensions.</p>
+        <div class="p-arrow">→</div>
+      </div>
+      <div class="p-step">
+        <span class="p-num">03</span>
+        <h4>Clean the Data</h4>
+        <p>Fix types, formats, blanks and inconsistencies row by row.</p>
+        <div class="p-arrow">→</div>
+      </div>
+      <div class="p-step">
+        <span class="p-num">04</span>
+        <h4>Answer Questions</h4>
+        <p>Query the clean warehouse for inventory, discount and revenue insight.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA QUALITY -->
+  <div class="section">
+    <div class="sec-eyebrow">04 — Dataset Inspection</div>
+    <div class="sec-title">Dataset Inspection</div>
+    <div class="card">
+      <table class="dq-table">
+        <thead><tr><th>Column</th><th>Problem found</th></tr></thead>
+        <tbody>
+          <tr><td class="col-name">transaction_date</td><td>Inconsistent date format <span class="fix-tag">standardise</span></td></tr>
+          <tr><td class="col-name">transaction_amount</td><td>Stored as text instead of number <span class="fix-tag">cast → numeric</span></td></tr>
+          <tr><td class="col-name">transaction_discount</td><td>Stored as text instead of number <span class="fix-tag">cast → numeric</span></td></tr>
+          <tr><td class="col-name">unit_price</td><td>Stored as text instead of number <span class="fix-tag">cast → numeric</span></td></tr>
+          <tr><td class="col-name">cost_price</td><td>Stored as text instead of number <span class="fix-tag">cast → numeric</span></td></tr>
+          <tr><td class="col-name">customer_email</td><td>Blank rows present <span class="fix-tag">handle nulls</span></td></tr>
+          <tr><td class="col-name">customer_phone</td><td>9-digit numbers, missing leading 0 (SA format) <span class="fix-tag">pad → 10 digits</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="section">
+    <div class="sec-eyebrow">05 — Business Logic to Remember</div>
+    <div class="sec-title">The formulas that show up in every query</div>
+    <div class="formula-grid">
+      <div class="formula-card">
+        <h4>Line Amount</h4>
+        <div class="code">Line_Amount = Unit_Price × Quantity</div>
+        <div class="code">Line_Amount = Unit_Price × Quantity × (1 − Discount%)</div>
+        <p>Use the discount version whenever a line-level discount applies. This is the cost of that individual line item before any invoice-level tax or discount.</p>
+      </div>
+      <div class="formula-card">
+        <h4>Reorder Threshold</h4>
+        <div class="code">WHERE Stock_On_Hand <= Reorder_Threshold</div>
+        <p>Stock at or below the reorder point needs restocking now. Split into <b>= threshold</b> (needs reorder) vs <b>&lt; threshold</b> (overdue, urgent) for a sharper answer.</p>
+      </div>
+      <div class="formula-card">
+        <h4>Discount Impact</h4>
+        <div class="code">Revenue Lost = Σ (Unit_Price × Qty × Discount%)</div>
+        <p>Find what % of revenue is being given away in discounts, and whether it's concentrated in specific stores, products, or tiers.</p>
+      </div>
+      <div class="formula-card">
+        <h4>Revenue &amp; Profit</h4>
+        <div class="code">Profit = Revenue − (Cost_Price × Quantity)</div>
+        <p>Revenue comes from Line_Amount; profit needs cost_price brought in from the product/supplier side.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSESSMENT WEIGHT -->
+  <div class="section">
+    <div class="sec-eyebrow">06 — Where the Marks Are</div>
+    <div class="sec-title">Assessment weighting</div>
+    <div class="card">
+      <div class="weights" id="weights">
+        <div class="w-row"><span>SSIS ETL</span><div class="w-bar-bg"><div class="w-bar" data-pct="30"></div></div><span class="w-pct">30%</span></div>
+        <div class="w-row"><span>Queries</span><div class="w-bar-bg"><div class="w-bar" data-pct="25"></div></div><span class="w-pct">25%</span></div>
+        <div class="w-row"><span>DB Design</span><div class="w-bar-bg"><div class="w-bar" data-pct="20"></div></div><span class="w-pct">20%</span></div>
+        <div class="w-row"><span>Data Quality</span><div class="w-bar-bg"><div class="w-bar" data-pct="15"></div></div><span class="w-pct">15%</span></div>
+        <div class="w-row"><span>GitHub</span><div class="w-bar-bg"><div class="w-bar" data-pct="5"></div></div><span class="w-pct">5%</span></div>
+        <div class="w-row"><span>Code Quality</span><div class="w-bar-bg"><div class="w-bar" data-pct="5"></div></div><span class="w-pct">5%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="section">
+    <div class="sec-eyebrow">07 — Technical Tools</div>
+    <div class="sec-title">Stack for the build</div>
+    <div class="tools">
+      <span class="tool-chip">SQL Server</span>
+      <span class="tool-chip">SSMS</span>
+      <span class="tool-chip">SSIS</span>
+      <span class="tool-chip">GitHub</span>
+      <span class="tool-chip">CSV</span>
+      <span class="tool-chip">SQL</span>
+    </div>
+  </div>
+
+  <footer>
+    By <span class="name">Tshifhiwa Tshikosi</span>
+  </footer>
+</div>
+
+<script>
+// ---------- Starfield background ----------
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let w,h,stars=[];
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = document.body.scrollHeight;
+}
+function initStars(){
+  stars = [];
+  const count = Math.floor((w*h)/9000);
+  for(let i=0;i<count;i++){
+    stars.push({
+      x: Math.random()*w, y: Math.random()*h,
+      r: Math.random()*1.3+0.2,
+      a: Math.random()*0.6+0.2,
+      speed: Math.random()*0.015+0.003
+    });
+  }
+}
+function drawStars(t){
+  ctx.clearRect(0,0,w,h);
+  for(const s of stars){
+    const flick = s.a + Math.sin(t*s.speed*40)*0.25;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(230,235,255,${Math.max(0,flick)})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+window.addEventListener('resize', ()=>{resize(); initStars();});
+resize(); initStars(); requestAnimationFrame(drawStars);
+
+// ---------- Countdown ----------
+const due = new Date('2026-07-21T23:59:00');
+function tickCountdown(){
+  const now = new Date();
+  let diff = due - now;
+  if(diff < 0) diff = 0;
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+  const m = Math.floor((diff/(1000*60))%60);
+  const s = Math.floor((diff/1000)%60);
+  document.getElementById('cd-days').textContent = d;
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+tickCountdown();
+setInterval(tickCountdown, 1000);
+
+// ---------- Star schema constellation ----------
+const dims = [
+  {name:'DIM_DATE', fields:['Date_ID','Transaction_Date','Customer_Since','Month'], color:'#60a5fa'},
+  {name:'DIM_PAYMENT', fields:['Payment_ID','Payment_Method'], color:'#a78bfa'},
+  {name:'DIM_CUSTOMER', fields:['Customer_ID','First/Last Name','Email','Phone','Loyalty_Tier'], color:'#f472b6'},
+  {name:'DIM_CUSTOMER_LOC', fields:['Location_ID','City','Province'], color:'#60a5fa'},
+  {name:'DIM_CASHIER', fields:['Cashier_ID','Cashier_Name'], color:'#a78bfa'},
+  {name:'DIM_STORE', fields:['Store_ID','Store_Name','Manager'], color:'#f472b6'},
+  {name:'DIM_STORE_LOC', fields:['Location_ID','City','Province','Region'], color:'#60a5fa'},
+  {name:'DIM_SUPPLIER', fields:['Supplier_ID','Supplier'], color:'#a78bfa'},
+  {name:'DIM_PRODUCT', fields:['Product_ID','Name','Category','Sub-Cat','SKU'], color:'#f472b6'}
+];
+const cx=400, cy=300, R=220;
+const linksG = document.getElementById('links');
+const nodesG = document.getElementById('nodes');
+const n = dims.length;
+
+dims.forEach((d,i)=>{
+  const angle = (-90 + i*(360/n)) * Math.PI/180;
+  const x = cx + R*Math.cos(angle);
+  const y = cy + R*Math.sin(angle);
+
+  const link = document.createElementNS('http://www.w3.org/2000/svg','line');
+  link.setAttribute('x1',cx); link.setAttribute('y1',cy);
+  link.setAttribute('x2',x); link.setAttribute('y2',y);
+  link.setAttribute('class','link');
+  linksG.appendChild(link);
+
+  const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.setAttribute('class','node');
+  g.setAttribute('transform',`translate(${x},${y})`);
+
+  const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  dot.setAttribute('class','dot'); dot.setAttribute('r','8');
+  dot.setAttribute('fill', d.color);
+  dot.setAttribute('style', `color:${d.color}`);
+  g.appendChild(dot);
+
+  const label = document.createElementNS('http://www.w3.org/2000/svg','text');
+  label.setAttribute('text-anchor','middle');
+  label.setAttribute('y', y > cy ? 24 : -14);
+  label.textContent = d.name;
+  g.appendChild(label);
+
+  const fields = document.createElementNS('http://www.w3.org/2000/svg','text');
+  fields.setAttribute('class','fields');
+  fields.setAttribute('text-anchor','middle');
+  fields.setAttribute('y', y > cy ? 38 : -28);
+  fields.textContent = d.fields.join(' · ');
+  g.appendChild(fields);
+
+  nodesG.appendChild(g);
+});
+
+// ---------- Animate weight bars on scroll ----------
+const bars = document.querySelectorAll('.w-bar');
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.width = e.target.dataset.pct + '%';
+    }
+  });
+},{threshold:0.4});
+bars.forEach(b=>obs.observe(b));
+</script>
+</body>
+</html>
