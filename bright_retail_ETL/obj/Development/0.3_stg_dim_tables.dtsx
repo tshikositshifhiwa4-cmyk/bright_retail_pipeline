@@ -11,12 +11,29 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="0 3_stg_dim_tables"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{52D2D16E-E8FA-4D73-8AA4-05F5C4A5287C}">
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{F4014F7E-FD66-4F8C-B92F-747AA3C685C3}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\creating dim_customer_location"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9A25D107-5083-42DF-97DE-F8648DEF2EC1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating dim_customer_location"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F8147821-6AFD-4D8A-AD56-86A55577A176}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[dim_customer_location]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[dim_customer_location] (&#xA;        customer_location_key    int identity(1,1) primary key,&#xA;        customer_location_id     int not null,&#xA;        customer_city            varchar(250) null,&#xA;        customer_province        varchar(250) not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\creating dim_store"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
@@ -26,7 +43,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating dim_store"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -43,7 +60,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating stg_dim_payment_method"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -60,12 +77,29 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading data into stg_payment_method"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{F8147821-6AFD-4D8A-AD56-86A55577A176}"
           SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[dim_payment] (payment_method)&#xA;&#xA;select distinct payment_method&#xA;from [stg_bright_retail].[dbo].[bright_retail_raw_data];&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading dim_customer_location"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F2CDF811-21D5-44E8-BC06-E460DC2DAFE4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading dim_customer_location"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F8147821-6AFD-4D8A-AD56-86A55577A176}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[dim_customer_location] (&#xA;    customer_location_id, customer_city, customer_province&#xA;)&#xA;select&#xA;    row_number() over (order by customer_city, customer_province) as customer_location_id,&#xA;    customer_city,&#xA;    customer_province&#xA;from stg_bright_retail.dbo.bright_retail_raw_data&#xA;where customer_city is not null&#xA;  and customer_province is not null;&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -77,7 +111,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading dim_store"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -103,6 +137,14 @@
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\loading dim_store" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{2DA9B7D9-04ED-4077-9C45-1C90F8EED0CF}"
+      DTS:From="Package\creating dim_customer_location"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\loading dim_customer_location" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -115,7 +157,7 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="164.8,41.6"
           Id="Package\creating dim_store"
@@ -168,6 +210,36 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,80.8999990959963" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="251.2,41.6"
+          Id="Package\creating dim_customer_location"
+          TopLeft="549.166636661524,87.5333327246374" />
+        <NodeLayout
+          Size="250.4,41.6"
+          Id="Package\loading dim_customer_location"
+          TopLeft="554.166636388336,214.066665178074" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="677.06663652493,129.133332724637">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,84.9333324534363"
+              Start="0,0"
+              End="0,77.4333324534363">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.4333324534363" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.1_creating_databases.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design",
-      "RelativeMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|solutionrelative:0.1_creating_databases.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design"
+      "AbsoluteMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.3_stg_dim_tables.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design",
+      "RelativeMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|solutionrelative:0.3_stg_dim_tables.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.2_loading_csv_file.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design",
       "RelativeMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|solutionrelative:0.2_loading_csv_file.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.3_stg_dim_tables.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design",
-      "RelativeMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|solutionrelative:0.3_stg_dim_tables.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design"
+      "AbsoluteMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.1_creating_databases.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design",
+      "RelativeMoniker": "D:0:0:{6F415823-E6A8-BFA3-98E0-98B9B61BC560}|bright_retail_ETL.dtproj|solutionrelative:0.1_creating_databases.dtsx||{CC84AFBD-DA02-46F4-8623-9F07E5569EDB}|Design"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "0.1_creating_databases.dtsx [Design]",
               "DocumentMoniker": "C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.1_creating_databases.dtsx",
               "RelativeDocumentMoniker": "0.1_creating_databases.dtsx",
@@ -38,7 +38,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "0.3_stg_dim_tables.dtsx [Design]",
               "DocumentMoniker": "C:\\Users\\d\\Desktop\\bright_retail_pipeline\\bright_retail_ETL\\0.3_stg_dim_tables.dtsx",
               "RelativeDocumentMoniker": "0.3_stg_dim_tables.dtsx",
