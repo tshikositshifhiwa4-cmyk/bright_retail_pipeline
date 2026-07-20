@@ -1,18 +1,18 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="7/20/2026 11:23:17 AM"
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-GDTTA31"
   DTS:CreatorName="DESKTOP-GDTTA31\d"
-  DTS:DTSID="{D25C76FB-F1C4-43D0-BBAD-1334A8C9BE7E}"
+  DTS:DTSID="{8849484D-FDEB-4475-BA87-3F25ADE95EDE}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="1033"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="0 3_stg_dim_tables"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{1595E689-DC3D-4426-B63C-B20F648E00B4}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{52D2D16E-E8FA-4D73-8AA4-05F5C4A5287C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -117,6 +117,10 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\creating dim_store"
+          TopLeft="356.481462004193,86.6666660639975" />
+        <NodeLayout
           Size="240.8,41.6"
           Id="Package\creating stg_dim_payment_method"
           TopLeft="83.333328780201,84.0666660820776" />
@@ -124,6 +128,10 @@
           Size="257.6,41.6"
           Id="Package\loading data into stg_payment_method"
           TopLeft="70.8333294631708,214.933331838714" />
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\loading dim_store"
+          TopLeft="369.444424258891,216.666665159994" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="201.683329121686,125.666666082078">
@@ -146,14 +154,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="164.8,41.6"
-          Id="Package\creating dim_store"
-          TopLeft="356.481462004193,86.6666660639975" />
-        <NodeLayout
-          Size="160.8,41.6"
-          Id="Package\loading dim_store"
-          TopLeft="369.444424258891,216.666665159994" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="439.270350817196,128.266666063997">
