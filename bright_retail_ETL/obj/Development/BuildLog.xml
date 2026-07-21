@@ -2,13 +2,13 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>bright_retail_ETL</Name>
-    <LastWriteTime>2026-07-20T11:24:58.1681553Z</LastWriteTime>
+    <LastWriteTime>2026-07-21T08:05:22.7501673Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>0.3_stg_dim_tables.dtsx</Name>
-      <LastWriteTime>2026-07-20T14:04:41.6070822Z</LastWriteTime>
+      <LastWriteTime>2026-07-20T14:05:34.0345643Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
@@ -19,6 +19,11 @@
     <ProjectBuildItemInfo>
       <Name>0.1_creating_databases.dtsx</Name>
       <LastWriteTime>2026-07-20T11:24:57.9872968Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>0.4_cleaning_dim_tables.dtsx</Name>
+      <LastWriteTime>2026-07-21T08:05:22.5451843Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

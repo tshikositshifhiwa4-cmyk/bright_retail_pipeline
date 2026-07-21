@@ -26,13 +26,14 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DESKTOP-GDTTA31</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA+r990GjtXE+UoGgprQafTgAAAAACAAAAAAAQZgAAAAEAACAAAADOp4hqymJL0JavfoANFjxW2pB0Kb44KpwJzfXrpoGRqQAAAAAOgAAAAAIAACAAAACf0+dXYUmx8sSfrpfr39kGKGXQFplEROerQjP7fyuzxpAAAAAAF5w61n7nXeWcBfrcqrFppCcUkjJ8a3qKhSg2dQjph98FbkmQ5ohSInuGVtzHCp9nkNSnBDIjVwM8AXbLJOAcqFZbfSpMHIHWK6Nf2nPQm4l2tx7bC9ZNsydJwOjCQwHPJl/JdCZcKwm1HSqATAgEHuPiX/VhsZtzOsDLHCTpqpVtaPt612Rh67BEdaCI4UJAAAAAJLQbNs3obgJiTGDp2BEMZCjTAMkntpp267PVOoASKT0fCYH77ABYktpINzCpMk7ENTv8R8pdorhMxr+JjSRyMA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA+r990GjtXE+UoGgprQafTgAAAAACAAAAAAAQZgAAAAEAACAAAAA/iXcPKQRUrrR+FjJA/Qss0DhvBzBrJ2+d+wrqMBoN0gAAAAAOgAAAAAIAACAAAACG8W5DeUgzeZLulnBkQfcELh0d/VBacj2L8hqTS5JdGZAAAAD7by2Pr2KXVE1DqSxqT5sDWpxaQKFLKTmb28NLPywYrcs0GKCt04M5y9brLBIvtgSBMb4AMOziPn9nMI326e9FbpU4W5d4iq4CodnbpeyuOm40QC9hwSBB1HMNjLrPf8vuBE/fW/U3bFCNbVQpE9B/RWqxGd/JcvjZqljA44azALiJVamjzrpuVamCyayYAYdAAAAAbBlMw3hWqTTsGxnxUo2tvIEbPFZNbJ+tuwRKqaJUq1WVoZCUVxzLRTVrJyA1dkN0q4K+OfhOH+uripTTkI5ebg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="0.3_stg_dim_tables.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="0.2_loading_csv_file.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="0.1_creating_databases.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="0.4_cleaning_dim_tables.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="DESKTOP-GDTTA31.stg_bright_retail.conmgr" />
@@ -344,10 +345,10 @@
                 <SSIS:Property SSIS:Name="Name">0 3_stg_dim_tables</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">10</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">23</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{52D2D16E-E8FA-4D73-8AA4-05F5C4A5287C}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{CE77566C-BAC0-46BE-B8B9-8B9B1DF07A7D}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -533,8 +534,6 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">
-                    </SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -580,6 +579,23 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{A0C6963D-C5BA-47A2-8D33-9B473FFC3E8A}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="0.4_cleaning_dim_tables.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{3DE05B5B-95AC-4DAF-813D-EB1A55907BDF}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">0 4_cleaning_dim_tables</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{BA4B2CBF-C4BA-4D69-BE25-DC190E7A21C3}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

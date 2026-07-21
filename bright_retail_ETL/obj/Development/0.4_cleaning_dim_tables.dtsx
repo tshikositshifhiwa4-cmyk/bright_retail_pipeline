@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/21/2026 10:01:39 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-GDTTA31"
+  DTS:CreatorName="DESKTOP-GDTTA31\d"
+  DTS:DTSID="{3DE05B5B-95AC-4DAF-813D-EB1A55907BDF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="0 4_cleaning_dim_tables"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{BA4B2CBF-C4BA-4D69-BE25-DC190E7A21C3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\creating clean_dim_payment"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FA41A616-9F11-4867-88C5-B11DAD24AEE5}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating clean_dim_payment"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F8147821-6AFD-4D8A-AD56-86A55577A176}"
+          SQLTask:SqlStatementSource="drop table if exists [stg_bright_retail].[dbo].[clean_payment];&#xA;go&#xA;&#xA;if object_id ('[stg_bright_retail].[dbo].[clean_payment]', 'U') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_payment] (&#xA;        payment_id int identity(1,1) primary key,&#xA;        payment_method varchar(250) not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading and cleaning dim_payment"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A714E715-D3A5-4F8C-A380-68219D58AA37}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading and cleaning dim_payment"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F8147821-6AFD-4D8A-AD56-86A55577A176}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_payment] (payment_method)&#xA;select distinct&#xA;        case upper(ltrim(rtrim(payment_method)))&#xA;            when 'CASH'         then 'Cash'&#xA;            when 'CREDIT CARD'  then 'Credit Card'&#xA;            when 'DEBIT CARD'   then 'Debit Card'&#xA;            when 'EFT'          then 'EFT'&#xA;            when 'STORE CREDIT' then 'Store Credit'&#xA;            else ltrim(rtrim(payment_method))&#xA;        end as payment_method&#xA;    from [stg_bright_retail].[dbo].[bright_retail_raw_data]&#xA;as s&#xA;where not exists (&#xA;    select 1 from [stg_bright_retail].[dbo].[clean_payment] d where d.payment_method = s.payment_method&#xA;);&#xA;go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{FB05404C-E3E6-4BD2-B5E3-FC09244E32CB}"
+      DTS:From="Package\creating clean_dim_payment"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\loading and cleaning dim_payment" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="211.2,41.6"
+          Id="Package\creating clean_dim_payment"
+          TopLeft="33.3333315120804,60.6666662447982" />
+        <NodeLayout
+          Size="239.2,41.6"
+          Id="Package\loading and cleaning dim_payment"
+          TopLeft="39.9999978144965,165.533332182235" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="138.93333151208,102.266666244798">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.6666663024161,63.266665937437"
+              Start="0,0"
+              End="20.6666663024161,55.766665937437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.6333329687185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.6333329687185"
+                    Point2="0,31.6333329687185"
+                    Point3="4,31.6333329687185" />
+                  <mssgle:LineSegment
+                    End="16.6666663024161,31.6333329687185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.6666663024161,31.6333329687185"
+                    Point2="20.6666663024161,31.6333329687185"
+                    Point3="20.6666663024161,35.6333329687185" />
+                  <mssgle:LineSegment
+                    End="20.6666663024161,55.766665937437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
