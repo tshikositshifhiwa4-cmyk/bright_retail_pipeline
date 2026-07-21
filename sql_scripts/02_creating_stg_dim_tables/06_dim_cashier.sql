@@ -10,8 +10,6 @@ begin
 end
 go
 
---truncate table
-truncate table [stg_bright_retail].[dbo].[dim_cashier]
 
 insert into [stg_bright_retail].[dbo].[dim_cashier] (cashier_name)
 
