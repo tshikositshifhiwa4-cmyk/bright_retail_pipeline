@@ -15,6 +15,7 @@ go
 
 --truncate table
 truncate table [stg_bright_retail].[dbo].[dim_date]
+go
 
 --inserting the data
 insert into [stg_bright_retail].[dbo].[dim_date] (transaction_date, month_name, month)
