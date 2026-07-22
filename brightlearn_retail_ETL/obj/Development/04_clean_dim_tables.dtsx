@@ -1,0 +1,543 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/21/2026 4:38:18 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-GDTTA31"
+  DTS:CreatorName="DESKTOP-GDTTA31\d"
+  DTS:DTSID="{DE66598D-62FB-4829-8632-EC3C2B40F479}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{63B9B672-EC9A-4CF7-B5D1-E0265BE3F5DD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\creating 01_clean_dim_payment"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{701CB34B-D972-4266-B581-4E66967E3E90}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 01_clean_dim_payment"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id ('[stg_bright_retail].[dbo].[clean_payment]', 'U') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_payment] (&#xA;        payment_id      int primary key,&#xA;        payment_method  varchar(250) not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\creating 02_clean_dim_store"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{13C34BB4-925C-4D9F-A11C-89D2D9AD07DB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 02_clean_dim_store"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="6">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_store]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_store] (&#xA;        store_id              int primary key,&#xA;        store_name            varchar(250) not null,&#xA;        store_province        varchar(250) not null,&#xA;        store_region          varchar(50)  not null,&#xA;        store_manager         varchar(100) not null,&#xA;        effective_start_date  date not null,&#xA;        effective_end_date    date null,&#xA;        is_current            bit not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\creating 03_clean_dim_supplier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{62FD73FB-A684-4F21-9DA6-888C2EC05923}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 03_clean_dim_supplier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_supplier]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_supplier] (&#xA;        supplier_id   int primary key,&#xA;        supplier      varchar(250) not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\creating 04_clean_dim_customer"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6B142ABE-B1AB-4EE9-AB95-0FBAE9126F42}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 04_clean_dim_customer"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_customer]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_customer] (&#xA;        customer_id            int primary key,&#xA;        first_name             varchar(250) not null,&#xA;        last_name              varchar(250) not null,&#xA;        email                  varchar(250) not null,&#xA;        phone_number           varchar(20) not null,&#xA;        loyalty_tier           varchar(50) not null,&#xA;        customer_since         date not null,&#xA;        customer_city          varchar(250) not null,&#xA;        customer_province      varchar(250) not null,&#xA;&#xA;        effective_start_date   date not null,&#xA;        effective_end_date     date null,&#xA;        is_current             bit not null&#xA;    );&#xA;end&#xA;go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\creating 05_clean_dim_product"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E1DE0DF9-FF47-4E2D-9B7B-547730E72A21}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 05_clean_dim_product"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_product]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_product] (&#xA;        product_id     int primary key,&#xA;        product_name   varchar(250) not null,&#xA;        category       varchar(250) null,&#xA;        sub_category   varchar(250) null,&#xA;        sku            varchar(250) not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\creating 06_clean_dim_cashier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3C12670A-42D5-4B5F-92FC-FF072806CB13}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 06_clean_dim_cashier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_cashier]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_cashier] (&#xA;        cashier_id          int primary key,&#xA;        cashier_name   varchar(250) not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\creating 07_clean_dim_date"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2AABF87F-CFED-4A91-9250-7FA50D7E541D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="creating 07_clean_dim_date"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_date]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_date] (&#xA;        date_id           int identity(1,1) primary key,&#xA;        transaction_date  date not null,&#xA;        month_name        varchar(20) not null,&#xA;        month             int not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 01_clean_dim_payment"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{852B8B85-17F1-4827-9CC6-E0AE92A48FEF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 01_clean_dim_payment"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="4">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_payment] (payment_id, payment_method)&#xA;select&#xA;    d.payment_id,&#xA;    case upper(ltrim(rtrim(d.payment_method)))&#xA;        when 'CASH'         then 'Cash'&#xA;        when 'CREDIT CARD'  then 'Credit Card'&#xA;        when 'DEBIT CARD'   then 'Debit Card'&#xA;        when 'EFT'          then 'EFT'&#xA;        when 'STORE CREDIT' then 'Store Credit'&#xA;        else ltrim(rtrim(d.payment_method))&#xA;    end as payment_method&#xA;from [stg_bright_retail].[dbo].[dim_payment] as d&#xA;where not exists (&#xA;    select 1 from [stg_bright_retail].[dbo].[clean_payment] c where c.payment_id = d.payment_id&#xA;);&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 02_clean_dim_store"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8FB992EB-F7F8-4145-A438-886414B7DE5E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 02_clean_dim_store"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="6">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="update s&#xA;set s.effective_end_date = getdate(), s.is_current = 0&#xA;from [stg_bright_retail].[dbo].[clean_store] as s&#xA;join [stg_bright_retail].[dbo].[dim_store] as d&#xA;    on s.store_id = d.store_id&#xA;where s.is_current = 1&#xA;  and d.is_current = 1&#xA;  and s.store_manager &lt;&gt; ltrim(rtrim(d.store_manager));&#xA;go&#xA;&#xA;insert into [stg_bright_retail].[dbo].[clean_store] (&#xA;    store_id, store_name, store_province, store_region, store_manager,&#xA;    effective_start_date, effective_end_date, is_current&#xA;)&#xA;select&#xA;    d.store_id,&#xA;    ltrim(rtrim(d.store_name)),&#xA;    ltrim(rtrim(d.store_province)),&#xA;    ltrim(rtrim(d.store_region)),&#xA;    ltrim(rtrim(d.store_manager)),&#xA;    d.effective_start_date,&#xA;    d.effective_end_date,&#xA;    d.is_current&#xA;from [stg_bright_retail].[dbo].[dim_store] as d&#xA;where d.is_current = 1&#xA;  and not exists (&#xA;      select 1 from [stg_bright_retail].[dbo].[clean_store] s&#xA;      where s.store_id = d.store_id and s.is_current = 1&#xA;  );&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 03_clean_dim_supplier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{61108B64-8A27-42F1-971A-3424F7324878}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 03_clean_dim_supplier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="2">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_supplier] (supplier_id, supplier)&#xA;select&#xA;    d.supplier_id,&#xA;    ltrim(rtrim(d.supplier))&#xA;from [stg_bright_retail].[dbo].[dim_supplier] as d&#xA;where not exists (&#xA;    select 1 from [stg_bright_retail].[dbo].[clean_supplier] c where c.supplier_id = d.supplier_id&#xA;);&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 04_clean_dim_customer"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{46919C27-7371-4FC1-B129-8E9092E1ECFC}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 04_clean_dim_customer"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_customer] (&#xA;    customer_id, first_name, last_name, email, phone_number,&#xA;    loyalty_tier, customer_since, customer_city, customer_province,&#xA;    effective_start_date, effective_end_date, is_current&#xA;)&#xA;select&#xA;    d.customer_id,&#xA;    coalesce(nullif(ltrim(rtrim(d.first_name)), ''), 'Unknown'),&#xA;    coalesce(nullif(ltrim(rtrim(d.last_name)), ''), 'Unknown'),&#xA;    coalesce(nullif(ltrim(rtrim(d.email)), ''), 'unknown@brightlearn.co.za'),&#xA;    coalesce(nullif(ltrim(rtrim(d.phone_number)), ''), '0000000000'),&#xA;    coalesce(nullif(ltrim(rtrim(d.loyalty_tier)), ''), 'None'),&#xA;    d.customer_since,&#xA;    coalesce(nullif(ltrim(rtrim(d.customer_city)), ''), 'Unknown'),&#xA;    coalesce(nullif(ltrim(rtrim(d.customer_province)), ''), 'Unknown'),&#xA;    d.effective_start_date,&#xA;    d.effective_end_date,&#xA;    d.is_current&#xA;from [stg_bright_retail].[dbo].[dim_customer] as d&#xA;where not exists (&#xA;    select 1 from [stg_bright_retail].[dbo].[clean_customer] c where c.customer_id = d.customer_id&#xA;);&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 05_clean_dim_product"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E4039EB1-AD6C-4B58-AFE3-12E080A4FB49}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 05_clean_dim_product"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_product] (&#xA;    product_id, product_name, category, sub_category, sku&#xA;)&#xA;select&#xA;    d.product_id,&#xA;    d.product_name,&#xA;    coalesce(nullif(d.category, ''), max(nullif(d.category, '')) over (partition by d.sku)) as category,&#xA;    d.sub_category,&#xA;    d.sku&#xA;from [stg_bright_retail].[dbo].[dim_product] as d&#xA;where not exists (&#xA;    select 1 from [stg_bright_retail].[dbo].[clean_product] c where c.product_id = d.product_id&#xA;);&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 06_clean_dim_chashier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{06D64FAD-6FD4-4D0E-97EC-82CCF982922A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 06_clean_dim_chashier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_cashier] (cashier_id,cashier_name)&#xA;select&#xA;    d.cashier_id,&#xA;    ltrim(rtrim(d.cashier_name))&#xA;from [stg_bright_retail].[dbo].[dim_cashier] as d&#xA;where not exists (&#xA;    select 1 from [stg_bright_retail].[dbo].[clean_cashier] c where c.cashier_id = d.cashier_id&#xA;);&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\loading 07_clean_dim_date"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6B1FB3C5-27BD-43B4-BEEC-C867EA06CF74}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="loading 07_clean_dim_date"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="5">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
+          SQLTask:SqlStatementSource="insert into [stg_bright_retail].[dbo].[clean_date] (transaction_date, month_name, month)&#xA;select&#xA;    s.clean_date,&#xA;    datename(month, s.clean_date),&#xA;    month(s.clean_date)&#xA;from (&#xA;    select distinct&#xA;        coalesce(&#xA;            try_convert(date, transaction_date, 23),   &#xA;            try_convert(date, transaction_date, 103),  &#xA;            try_convert(date, transaction_date, 105),  &#xA;            try_convert(date, transaction_date, 106)   &#xA;        ) as clean_date&#xA;    from [stg_bright_retail].[dbo].[bright_retail_raw_data]&#xA;) as s&#xA;where s.clean_date is not null&#xA;  and not exists (&#xA;      select 1 from [stg_bright_retail].[dbo].[clean_date] d where d.transaction_date = s.clean_date&#xA;  );&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{ED6B328C-9F74-4EE6-BA7B-1C12E8CD2AA3}"
+      DTS:From="Package\creating 01_clean_dim_payment"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\loading 01_clean_dim_payment" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{885BADD8-3DDB-4C6D-B252-9E21FE784CF9}"
+      DTS:From="Package\creating 02_clean_dim_store"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\loading 02_clean_dim_store" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{B26C72EB-2339-407C-A491-6497B27CB2AA}"
+      DTS:From="Package\creating 03_clean_dim_supplier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\loading 03_clean_dim_supplier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{B3687D4C-6B42-46DA-A96B-43DD057DDC69}"
+      DTS:From="Package\creating 04_clean_dim_customer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\loading 04_clean_dim_customer" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{4134EC45-969F-4855-98C4-55E657BAD515}"
+      DTS:From="Package\creating 05_clean_dim_product"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\loading 05_clean_dim_product" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{38F592ED-24CF-4149-BF29-5E0AFCF7054B}"
+      DTS:From="Package\creating 06_clean_dim_cashier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\loading 06_clean_dim_chashier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{3C1D21C1-6D22-405B-BD59-EFF8F24DB59A}"
+      DTS:From="Package\creating 07_clean_dim_date"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\loading 07_clean_dim_date" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="228.8,41.6"
+          Id="Package\creating 01_clean_dim_payment"
+          TopLeft="83.3333287802009,19.0666665340794" />
+        <NodeLayout
+          Size="212,41.6"
+          Id="Package\creating 02_clean_dim_store"
+          TopLeft="357.499980467062,34.666666425599" />
+        <NodeLayout
+          Size="225.6,41.6"
+          Id="Package\loading 01_clean_dim_payment"
+          TopLeft="80.3999950826172,167.266665503515" />
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\creating 05_clean_dim_product"
+          TopLeft="94.1666615216281,252.199998246233" />
+        <NodeLayout
+          Size="221.6,41.6"
+          Id="Package\loading 03_clean_dim_supplier"
+          TopLeft="622.499965988102,165.533332182235" />
+        <NodeLayout
+          Size="225.6,41.6"
+          Id="Package\creating 03_clean_dim_supplier"
+          TopLeft="621.6666327003,36.399999746879" />
+        <NodeLayout
+          Size="228,41.6"
+          Id="Package\loading 04_clean_dim_customer"
+          TopLeft="878.433299412498,167.266665503515" />
+        <NodeLayout
+          Size="208.8,41.6"
+          Id="Package\loading 02_clean_dim_store"
+          TopLeft="364.99998005728,166.399998842875" />
+        <NodeLayout
+          Size="231.2,41.6"
+          Id="Package\creating 04_clean_dim_customer"
+          TopLeft="879.866628602481,40.7333330500788" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="195.466661931409,60.6666665340794">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,106.599998969436"
+              Start="0,0"
+              End="0,99.0999989694357">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,99.0999989694357" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="466.449980262171,76.266666425599">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,90.1333324172762"
+              Start="0,0"
+              End="0,82.6333324172762">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82.6333324172762" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="733.883299344201,77.999999746879">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,87.5333324353563"
+              Start="0,0"
+              End="0,80.0333324353563">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,80.0333324353563" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="993.94996400749,82.3333330500788">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,84.9333324534365"
+              Start="0,0"
+              End="0,77.4333324534365">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77.4333324534365" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\loading 05_clean_dim_product"
+          TopLeft="101.666661111845,368.33333077199" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="208.716661316737,293.799998246233">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.5333325257567"
+              Start="0,0"
+              End="0,67.0333325257567">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.0333325257567" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="222.4,41.6"
+          Id="Package\creating 06_clean_dim_cashier"
+          TopLeft="371.666646359696,247.266665575836" />
+        <NodeLayout
+          Size="224.8,41.6"
+          Id="Package\loading 06_clean_dim_chashier"
+          TopLeft="364.99998005728,365.999998083512" />
+        <NodeLayout
+          Size="208.8,41.6"
+          Id="Package\creating 07_clean_dim_date"
+          TopLeft="639.999965031943,252.466665539675" />
+        <NodeLayout
+          Size="205.6,41.6"
+          Id="Package\loading 07_clean_dim_date"
+          TopLeft="641.999967763823,368.599998065432" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="480.133313208488,288.866665575836">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,77.1333325076765"
+              Start="0,0"
+              End="0,69.6333325076765">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,69.6333325076765" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="744.599966397883,294.066665539675">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.5333325257567"
+              Start="0,0"
+              End="0,67.0333325257567">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.0333325257567" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
