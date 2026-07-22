@@ -1,12 +1,12 @@
 
 --creating stg dim_store using scd type 2 on store manager
-
 if object_id ('[stg_bright_retail].[dbo].[dim_store]', 'U') is null
 begin
     create table [stg_bright_retail].[dbo].[dim_store] (
        store_key int identity(1,1) primary key,
        store_id int not null,
        store_name varchar(250) not null,
+       store_city varchar(250) not null,
        store_province varchar(250) not null,
        store_region varchar(250) not null,
        store_manager varchar(250) not null,
@@ -31,12 +31,13 @@ go
 --inserting the data to the table
 
 insert into [stg_bright_retail].[dbo].[dim_store] (
-    store_id, store_name, store_province, store_region, store_manager,
+    store_id, store_name,store_city, store_province, store_region, store_manager,
     effective_start_date, effective_end_date, is_current
 )
 select
     row_number() over (order by b.store_name) + isnull((select max(store_id) from [stg_bright_retail].[dbo].[dim_store]), 0) as store_id,
     b.store_name,
+    b.store_city,
     b.store_province,
     b.store_region,
     b.store_manager,
@@ -44,7 +45,7 @@ select
     null as effective_end_date,
     1 as is_current
 from (
-    select distinct store_name, store_province, store_region, store_manager
+    select distinct store_name, store_city, store_province, store_region, store_manager
     from [stg_bright_retail].[dbo].[bright_retail_raw_data]
 ) as b
 where not exists (

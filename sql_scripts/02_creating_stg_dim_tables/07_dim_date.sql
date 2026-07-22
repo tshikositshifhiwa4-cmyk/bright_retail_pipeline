@@ -1,32 +1,30 @@
-drop table if exists [stg_bright_retail].[dbo].[dim_cashier];
-go
-
-
 if object_id('[stg_bright_retail].[dbo].[dim_date]', 'u') is null
 begin
     create table [stg_bright_retail].[dbo].[dim_date] (
-        date_id         int identity(1,1) primary key,
-        transaction_date date not null,
-        month_name       varchar(20) not null,
-        month            int not null
+        date_id           int identity(1,1) primary key,
+        transaction_date  date not null,
+        month_name        varchar(20) not null,
+        month             int not null
     );
 end
 go
 
---truncate table
-truncate table [stg_bright_retail].[dbo].[dim_date]
-go
-
---inserting the data
+-- inserting data (no truncate — only adds dates not already loaded)
 insert into [stg_bright_retail].[dbo].[dim_date] (transaction_date, month_name, month)
-select distinct 
-       try_convert(date, transaction_date),
-        datename(month, try_convert(date, transaction_date)),
-         month(try_convert(date, transaction_date))
-from stg_bright_retail.dbo.bright_retail_raw_data
-where try_convert(date, transaction_date) is not null;
+select
+    s.clean_date,
+    datename(month, s.clean_date),
+    month(s.clean_date)
+from (
+    select distinct try_convert(date, transaction_date) as clean_date
+    from stg_bright_retail.dbo.bright_retail_raw_data
+) as s
+where s.clean_date is not null
+  and not exists (
+      select 1 from [stg_bright_retail].[dbo].[dim_date] d where d.transaction_date = s.clean_date
+  );
 go
 
 --verify the insert
 select *
-from [stg_bright_retail].[dbo].[dim_date] 
+from [stg_bright_retail].[dbo].[dim_date]

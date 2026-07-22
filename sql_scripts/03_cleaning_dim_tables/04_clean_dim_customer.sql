@@ -1,8 +1,7 @@
 if object_id('[stg_bright_retail].[dbo].[clean_customer]', 'u') is null
 begin
     create table [stg_bright_retail].[dbo].[clean_customer] (
-        customer_key           int primary key,
-        customer_id            int not null,
+        customer_id            int primary key,
         first_name             varchar(250) not null,
         last_name              varchar(250) not null,
         email                  varchar(250) not null,
@@ -20,12 +19,11 @@ end
 go
 
 insert into [stg_bright_retail].[dbo].[clean_customer] (
-    customer_key, customer_id, first_name, last_name, email, phone_number,
+    customer_id, first_name, last_name, email, phone_number,
     loyalty_tier, customer_since, customer_city, customer_province,
     effective_start_date, effective_end_date, is_current
 )
 select
-    d.customer_key,
     d.customer_id,
     coalesce(nullif(ltrim(rtrim(d.first_name)), ''), 'Unknown'),
     coalesce(nullif(ltrim(rtrim(d.last_name)), ''), 'Unknown'),
@@ -40,7 +38,7 @@ select
     d.is_current
 from [stg_bright_retail].[dbo].[dim_customer] as d
 where not exists (
-    select 1 from [stg_bright_retail].[dbo].[clean_customer] c where c.customer_key = d.customer_key
+    select 1 from [stg_bright_retail].[dbo].[clean_customer] c where c.customer_id = d.customer_id
 );
 go
 
