@@ -38,7 +38,11 @@ A star schema centered on `fact_sales`, with one deliberate exception:
 | Dimension | Attribute | SCD Type | Reasoning |
 |---|---|---|---|
 | `dim_customer` | `loyalty_tier` | **Type 2** | Preserves tier history so past sales stay attributed to the tier a customer held *at the time* |
+| `dim_store` | `store_manager` | **Type 2** | Preserves manager history so historical sales remain associated with the manager responsible for the store at the time of each transaction. |
 | All other dimensions | — | **Type 1** | No business need to track history; overwrite on change |
+
+<img width="1600" height="1344" alt="star_schema" src="https://github.com/user-attachments/assets/aa0cdf24-8dbe-4c59-8cbd-1f3cfd7d52ad" />
+
 
 ---
 
