@@ -1,6 +1,6 @@
--- ============================================================
--- DWH_FACT_SALES
--- ============================================================
+
+-- creating dwh_fact_sales
+
 if object_id('[dwh_bright_retail].[dbo].[dwh_fact_sales]', 'u') is null
 begin
     create table [dwh_bright_retail].[dbo].[dwh_fact_sales] (
