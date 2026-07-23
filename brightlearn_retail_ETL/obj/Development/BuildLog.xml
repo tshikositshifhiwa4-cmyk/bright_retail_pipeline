@@ -23,12 +23,12 @@
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>04_clean_dim_tables.dtsx</Name>
-      <LastWriteTime>2026-07-22T12:08:29.2396141Z</LastWriteTime>
+      <LastWriteTime>2026-07-22T18:46:26.4372632Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>05_dwh_tables.dtsx</Name>
-      <LastWriteTime>2026-07-22T17:52:35.0999263Z</LastWriteTime>
+      <LastWriteTime>2026-07-23T10:06:30.639676Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>

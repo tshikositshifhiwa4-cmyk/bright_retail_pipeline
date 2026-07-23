@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{63B9B672-EC9A-4CF7-B5D1-E0265BE3F5DD}">
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{333A941F-313B-4AC6-B9C0-49875DBC19FE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -26,7 +26,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating 01_clean_dim_payment"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="4">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -48,7 +48,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
-          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_store]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_store] (&#xA;        store_id              int primary key,&#xA;        store_name            varchar(250) not null,&#xA;        store_province        varchar(250) not null,&#xA;        store_region          varchar(50)  not null,&#xA;        store_manager         varchar(100) not null,&#xA;        effective_start_date  date not null,&#xA;        effective_end_date    date null,&#xA;        is_current            bit not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="if object_id('[stg_bright_retail].[dbo].[clean_store]', 'u') is null&#xA;begin&#xA;    create table [stg_bright_retail].[dbo].[clean_store] (&#xA;        store_id              int primary key,&#xA;        store_name            varchar(250) not null,&#xA;        store_province        varchar(250) not null,&#xA;        store_city            varchar(250) not null,&#xA;        store_region          varchar(50)  not null,&#xA;        store_manager         varchar(100) not null,&#xA;        effective_start_date  date not null,&#xA;        effective_end_date    date null,&#xA;        is_current            bit not null&#xA;    );&#xA;end&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -60,7 +60,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating 03_clean_dim_supplier"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -77,7 +77,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating 04_clean_dim_customer"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="3">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -94,7 +94,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating 05_clean_dim_product"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="3">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -111,7 +111,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="creating 06_clean_dim_cashier"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="4">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -145,7 +145,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading 01_clean_dim_payment"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="4">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -167,7 +167,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{530DB872-1956-4B71-8BD1-2BC73FF88A8F}"
-          SQLTask:SqlStatementSource="update s&#xA;set s.effective_end_date = getdate(), s.is_current = 0&#xA;from [stg_bright_retail].[dbo].[clean_store] as s&#xA;join [stg_bright_retail].[dbo].[dim_store] as d&#xA;    on s.store_id = d.store_id&#xA;where s.is_current = 1&#xA;  and d.is_current = 1&#xA;  and s.store_manager &lt;&gt; ltrim(rtrim(d.store_manager));&#xA;go&#xA;&#xA;insert into [stg_bright_retail].[dbo].[clean_store] (&#xA;    store_id, store_name, store_province, store_region, store_manager,&#xA;    effective_start_date, effective_end_date, is_current&#xA;)&#xA;select&#xA;    d.store_id,&#xA;    ltrim(rtrim(d.store_name)),&#xA;    ltrim(rtrim(d.store_province)),&#xA;    ltrim(rtrim(d.store_region)),&#xA;    ltrim(rtrim(d.store_manager)),&#xA;    d.effective_start_date,&#xA;    d.effective_end_date,&#xA;    d.is_current&#xA;from [stg_bright_retail].[dbo].[dim_store] as d&#xA;where d.is_current = 1&#xA;  and not exists (&#xA;      select 1 from [stg_bright_retail].[dbo].[clean_store] s&#xA;      where s.store_id = d.store_id and s.is_current = 1&#xA;  );&#xA;go" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="update s&#xA;set s.effective_end_date = getdate(), s.is_current = 0&#xA;from [stg_bright_retail].[dbo].[clean_store] as s&#xA;join [stg_bright_retail].[dbo].[dim_store] as d&#xA;    on s.store_id = d.store_id&#xA;where s.is_current = 1&#xA;  and d.is_current = 1&#xA;  and s.store_manager &lt;&gt; ltrim(rtrim(d.store_manager));&#xA;go&#xA;&#xA;insert into [stg_bright_retail].[dbo].[clean_store] (&#xA;    store_id, store_name,  store_city, store_province, store_region, store_manager,&#xA;    effective_start_date, effective_end_date, is_current&#xA;)&#xA;select&#xA;    d.store_id,&#xA;    ltrim(rtrim(d.store_name)),&#xA;    ltrim(rtrim(d.store_city)),&#xA;    ltrim(rtrim(d.store_province)),&#xA;    ltrim(rtrim(d.store_region)),&#xA;    ltrim(rtrim(d.store_manager)),&#xA;    d.effective_start_date,&#xA;    d.effective_end_date,&#xA;    d.is_current&#xA;from [stg_bright_retail].[dbo].[dim_store] as d&#xA;where d.is_current = 1&#xA;  and not exists (&#xA;      select 1 from [stg_bright_retail].[dbo].[clean_store] s&#xA;      where s.store_id = d.store_id and s.is_current = 1&#xA;  );&#xA;go&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -179,7 +179,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading 03_clean_dim_supplier"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -196,7 +196,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading 04_clean_dim_customer"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="3">
+      DTS:ThreadHint="2">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -213,7 +213,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading 05_clean_dim_product"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="3">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -230,7 +230,7 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="loading 06_clean_dim_chashier"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="4">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -336,32 +336,52 @@
           TopLeft="357.499980467062,34.666666425599" />
         <NodeLayout
           Size="225.6,41.6"
-          Id="Package\loading 01_clean_dim_payment"
-          TopLeft="80.3999950826172,167.266665503515" />
+          Id="Package\creating 03_clean_dim_supplier"
+          TopLeft="621.6666327003,36.399999746879" />
+        <NodeLayout
+          Size="231.2,41.6"
+          Id="Package\creating 04_clean_dim_customer"
+          TopLeft="879.866628602481,40.7333330500788" />
         <NodeLayout
           Size="223.2,41.6"
           Id="Package\creating 05_clean_dim_product"
           TopLeft="94.1666615216281,252.199998246233" />
         <NodeLayout
-          Size="221.6,41.6"
-          Id="Package\loading 03_clean_dim_supplier"
-          TopLeft="622.499965988102,165.533332182235" />
+          Size="222.4,41.6"
+          Id="Package\creating 06_clean_dim_cashier"
+          TopLeft="371.666646359696,247.266665575836" />
+        <NodeLayout
+          Size="208.8,41.6"
+          Id="Package\creating 07_clean_dim_date"
+          TopLeft="639.999965031943,252.466665539675" />
         <NodeLayout
           Size="225.6,41.6"
-          Id="Package\creating 03_clean_dim_supplier"
-          TopLeft="621.6666327003,36.399999746879" />
-        <NodeLayout
-          Size="228,41.6"
-          Id="Package\loading 04_clean_dim_customer"
-          TopLeft="878.433299412498,167.266665503515" />
+          Id="Package\loading 01_clean_dim_payment"
+          TopLeft="80.3999950826172,167.266665503515" />
         <NodeLayout
           Size="208.8,41.6"
           Id="Package\loading 02_clean_dim_store"
           TopLeft="364.99998005728,166.399998842875" />
         <NodeLayout
-          Size="231.2,41.6"
-          Id="Package\creating 04_clean_dim_customer"
-          TopLeft="879.866628602481,40.7333330500788" />
+          Size="221.6,41.6"
+          Id="Package\loading 03_clean_dim_supplier"
+          TopLeft="622.499965988102,165.533332182235" />
+        <NodeLayout
+          Size="228,41.6"
+          Id="Package\loading 04_clean_dim_customer"
+          TopLeft="878.433299412498,167.266665503515" />
+        <NodeLayout
+          Size="220,41.6"
+          Id="Package\loading 05_clean_dim_product"
+          TopLeft="101.666661111845,368.33333077199" />
+        <NodeLayout
+          Size="224.8,41.6"
+          Id="Package\loading 06_clean_dim_chashier"
+          TopLeft="364.99998005728,365.999998083512" />
+        <NodeLayout
+          Size="205.6,41.6"
+          Id="Package\loading 07_clean_dim_date"
+          TopLeft="641.999967763823,368.599998065432" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="195.466661931409,60.6666665340794">
@@ -450,10 +470,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="220,41.6"
-          Id="Package\loading 05_clean_dim_product"
-          TopLeft="101.666661111845,368.33333077199" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
           TopLeft="208.716661316737,293.799998246233">
@@ -476,22 +492,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="222.4,41.6"
-          Id="Package\creating 06_clean_dim_cashier"
-          TopLeft="371.666646359696,247.266665575836" />
-        <NodeLayout
-          Size="224.8,41.6"
-          Id="Package\loading 06_clean_dim_chashier"
-          TopLeft="364.99998005728,365.999998083512" />
-        <NodeLayout
-          Size="208.8,41.6"
-          Id="Package\creating 07_clean_dim_date"
-          TopLeft="639.999965031943,252.466665539675" />
-        <NodeLayout
-          Size="205.6,41.6"
-          Id="Package\loading 07_clean_dim_date"
-          TopLeft="641.999967763823,368.599998065432" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
           TopLeft="480.133313208488,288.866665575836">
